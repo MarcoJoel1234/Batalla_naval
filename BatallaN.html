@@ -1,0 +1,118 @@
+<script>
+    var j1 = "";
+    var j2 = "";
+    var tablero1 = ["|0|", "|0|", "|0|", "|0|", "|0|", "|0|", "|0|", "|0|", "|0|", "|0|"];
+    var tablero2 = ["|0|", "|0|", "|0|", "|0|", "|0|", "|0|", "|0|", "|0|", "|0|", "|0|"];
+    juego();
+
+    function juego(){
+        alert("¡Bienvenido al Juego Batalla Naval en donde podras hundir los barcos de tu contrincante!" + "\n" + "¿Estas listo para jugar?" + "\n" + "Presiona el boton *Aceptar* para continuar");
+        nombres();
+        tableros();
+        jugar();
+    }
+    function nombres() {
+        j1 = prompt("Ingresa el nombre del jugador 1");
+        j2 = prompt("Ingresa el nombre del jugador 2");
+    }
+    function tableros(){
+        for(var e = 0; e < 2; e++){
+            if(e == 0){
+                alert("En este momento solo el jugador " + j1 + " puede ver la pantalla");
+                alert("¡Muy bien! Es hora de posicionar tus barcos jugador *" + j1 + "*" + "\n" + "*RECORDATORIO* :" + "\n" + "-Solo tienes 3 barcos para posicionar" + "\n" + "-Tu tablero es de 1 dimension y solo tiene 10 espacios" + "\n" + "-Recuerda No mostrar tu tablero");
+                alert("Jugador " + j1 + " El siguiente es tu tablero:" + "\n" + tablero1);
+                for (var i = 0; i < 3; i++) {
+                    var barco = parseInt(prompt(tablero1 + "\n" + "¿En que posicion deseas insertar el barco No." + (i + 1) + "?"));
+                    tablero1[(barco - 1)] = "|☻|";
+                }
+                alert("Tus barcos han quedado posicionados asi:" + "\n" + tablero1);
+            }else{
+                alert("En este momento solo el jugador " + j2 + " puede ver la pantalla");
+                alert("¡Muy bien! Es hora de posicionar tus barcos jugador *" + j2 + "*" + "\n" + "*RECORDATORIO* :" + "\n" + "-Solo tienes 3 barcos para posicionar" + "\n" + "-Tu tablero es de 1 dimension y solo tiene 10 espacios" + "\n" + "-Recuerda No mostrar tu tablero");
+                alert("Jugador " + j2 + " El siguiente es tu tablero:" + "\n" + tablero2);
+                    for (var i = 0; i < 3; i++) {
+                        var barco = parseInt(prompt(tablero2 + "\n" + "¿En que posicion deseas insertar el barco No." + (i + 1) + "?"));
+                        tablero2[(barco - 1)] = "|☻|";
+                }
+                alert("Tus barcos han quedado posicionados asi:" + "\n" + tablero2);
+            }
+        }
+        alert("¿Listos para jugar?" + "\n" + "Presiona el boton *Aceptar* para continuar");
+    }
+
+    function jugar(){
+        var desicion = "si"
+        var dFinal = true;
+        var aux = true;
+        var hundido1 = 3;
+        var hundido2 = 3;
+
+        do{
+        while(dFinal == true){
+            if(aux == true){
+                var p = parseInt(prompt("Ingresa la posicion que quieres atacar en el tablero de tu contrincante"));
+                if(tablero2[(p - 1)] == "|☻|"){
+                    tablero2[(p - 1)] = "|0|"
+                    hundido2 -= 1;
+                    alert("¡Muy bien! Has hundido un barco de tu contrincante")
+                    console.log("¡Lastima! Te han hundido un barco " + j2);
+                    alert("Es turno del jugador: " + j2);
+                    alert("¡Lastima! Te han hundido un barco, tu tablero a quedado solo con " + hundido2 + " barcos:" + "\n" + tablero2);
+                }else{
+                    alert("¡Que mala suerte! No has atinado" + "\n" + "¡Espera al siguiente turno!");
+                    console.log("No te han hundido ningun barco " + j2);
+                    alert("Es turno del jugador: " + j2);
+                }
+                if(hundido2 != 0){
+                aux = false;   
+                } 
+                if(aux == false){
+                    var p = parseInt(prompt("Ingresa la posicion en el tablero de tu contrincante donde crees que hay un barco"));
+                    if (tablero1[(p - 1)] == "|☻|") {
+                        tablero1[(p - 1)] = "|0|"
+                        hundido1 -= 1; 
+                        alert("¡Muy bien! Has hundido un barco de tu contrincante");
+                        console.log("¡Lastima! Te han hundido un barco " + j1);
+                        alert("Es turno del jugador " + j1);
+                        alert("¡Lastima! Te han hundido un barco, tu tablero a quedado solo con " + hundido1 + " barcos:" + "\n" + tablero1);
+                    } else {
+                        alert("¡Que mala suerte! No has atinado" + "\n" + "¡Espera al siguiente turno!");
+                        console.log("No te han hundido ningun barco " + j1);
+                    }
+                }
+                aux = true;
+            }
+            if (hundido1 == 0) {
+                dFinal = false;
+                alert("El ganador es: " + j2 + "\n" + "El perdedor es: " + j1);
+                alert("¡Felicidades! " + j2 + " Has ganado");
+                console.log("El ganador es: " + j2)
+                console.log("El perdedor es: " + j1)
+            }
+            if(hundido2 == 0){
+                dFinal = false;
+                alert("El ganador es: " + j1 + "\n" + "El perdedor es: " + j2);
+                alert("¡Felicidades! " + j1 + " Has ganado");
+                console.log("El ganador es: " + j1)
+                console.log("El perdedor es: " + j2)
+            }
+        }
+        console.log("Barcos restantes de: " + j1 + "\n" + tablero1);
+        console.log("Barcos restantes de: " + j2 + "\n" + tablero2);
+        desicion = prompt("¿Deseas volver a jugar?");
+        if(desicion == "Si" || desicion == "si" || desicion == "sI" || desicion == "SI"){
+            volverAJugar();
+        }
+    }while(desicion == "Si" || desicion == "si" || desicion == "sI" || desicion == "SI");
+    }
+
+    function volverAJugar(){
+        dFinal = true;
+        aux = true;
+        hundido1 = 3;
+        hundido2 = 3;
+        tablero1 = ["|0|", "|0|", "|0|", "|0|", "|0|", "|0|", "|0|", "|0|", "|0|", "|0|"];
+        tablero2 = ["|0|", "|0|", "|0|", "|0|", "|0|", "|0|", "|0|", "|0|", "|0|", "|0|"];
+        juego();
+    }
+</script>
