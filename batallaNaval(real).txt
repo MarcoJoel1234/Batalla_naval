@@ -1,0 +1,152 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+class Batalla {
+static void Main() {
+string j1 = "";
+string j2 = "";
+string[] tablero1 = new string[] { "|0|", "|0|", "|0|", "|0|", "|0|", "|0|", "|0|", "|0|", "|0|", "|0|" };
+string[] tablero2 = new string[] { "|0|", "|0|", "|0|", "|0|", "|0|", "|0|", "|0|", "|0|", "|0|", "|0|" };
+bool dFinal = true;
+bool aux = true;
+int hundido1 = 3;
+int undido2 = 3;
+
+
+Console.WriteLine("¡Bienvenido al Juego Batalla Naval en donde podras hundir los barcos de tu contrincante! \n¿Estas listo para jugar? \nPresiona el boton *Enter* para continuar");
+Console.ReadLine();
+Console.WriteLine("Ingresa el nombre del jugador 1");
+j1 = Console.ReadLine();
+Console.WriteLine("Ingresa el nombre del jugador 2");
+j2 = Console.ReadLine();
+
+for (var e = 0; e < 2; e++) { 
+    if (e==0) { 
+        Console.WriteLine("En este momento solo el jugador " + j1 + " puede ver la pantalla"); 
+        Console.ReadLine(); 
+        Console.WriteLine("¡Muy bien! Es hora de posicionar tus barcos jugador *" + j1 + "* \n*RECORDATORIO* :  \n-Solo tienes 3 barcos para posicionar \n-Tu tablero es de 1 dimension y solo tiene 10 espacios \n-Recuerda No mostrar tu tablero"); 
+        Console.ReadLine(); 
+        Console.WriteLine("Jugador " + j1 + " El siguiente es tu tablero:"); 
+        foreach(string i in tablero1){ 
+            Console.Write("{0} ", i);
+        }
+        Console.ReadLine();
+        for (var i = 0; i < 3; i++) {
+            int barco = 0;
+            Console.WriteLine(" ¿En que posicion deseas insertar el barco No." + (i + 1) + "?" );
+            foreach(string t in tablero1){ 
+                Console.Write("{0} ", t);
+            }
+            barco = Int32.Parse(Console.ReadLine());
+            tablero1[(barco - 1)] = "|☻☻☻|"; 
+        } 
+        Console.WriteLine("Tus barcos han quedado posicionados asi:"); 
+        foreach(string c in tablero1){ 
+            Console.Write("{0} ", c);
+        }
+        Console.ReadLine();
+    } else {
+        Console.WriteLine(" En este momento solo el jugador " + j2 + " puede ver la pantalla");
+        Console.ReadLine(); 
+        Console.WriteLine("¡Muy bien! Es hora de posicionar tus barcos jugador *" + j2 + "*\n*RECORDATORIO* : \n-Solo tienes 3 barcos para posicionar \n-Tu tablero es de 1 dimension y solo tiene 10 espacios \n-Recuerda No mostrar tu tablero"); 
+        Console.ReadLine(); 
+        Console.WriteLine("Jugador " + j2 + " El siguiente es tu tablero:"); 
+        foreach(string d in tablero2){ 
+            Console.Write("{0} ", d);
+        }
+        Console.ReadLine();
+        for (var i = 0; i < 3; i++) {
+            int barco1 = 0;
+            Console.WriteLine(" ¿En que posicion deseas insertar el barco No." + (i + 1) + "?" );
+            foreach(string n in tablero2){ 
+                Console.Write("{0} ", n);
+            }
+            barco1 = Int32.Parse(Console.ReadLine());
+            tablero2[(barco1 - 1)] = "|☻☻☻|"; 
+        } 
+        Console.WriteLine("Tus barcos han quedado posicionados asi:"); 
+        foreach(string l in tablero2){ 
+            Console.Write("{0} ", l);
+        }
+        Console.ReadLine();
+    }
+}
+           
+    Console.WriteLine(" ¿Listos para jugar?\n Presiona el boton *Enter* para continuar"); 
+    Console.ReadLine();
+    while (dFinal==true) { 
+        if (aux==true) { 
+            int p=0; 
+            Console.WriteLine("Ingresa la posicion que quieres atacar en el tablero de tu contrincante"); 
+            p=Int32.Parse(Console.ReadLine()); 
+            if (tablero2[(p - 1)]== "|☻☻☻|" ) { 
+                tablero2[(p - 1)]= "|0|" ; 
+                undido2 -= 1; 
+                Console.WriteLine("¡Muy bien! Has hundido un barco de tu contrincante");
+                Console.WriteLine("Es turno del jugador: " + j2);
+                Console.ReadLine();
+                Console.WriteLine(" ¡Lastima! Te han hundido un barco, tu tablero a quedado solo con " + undido2 + " barcos:"); 
+                foreach(string z in tablero2){ 
+                    Console.Write("{0} ", z);
+                }
+                 Console.ReadLine();
+            } else {
+                Console.WriteLine(" ¡Que mala suerte! No has atinado \n¡Espera al siguiente turno!");
+                Console.WriteLine("Es turno del jugador: " + j2);
+                Console.ReadLine();
+                Console.WriteLine(" No te han hundido ningun barco " + j2);
+                Console.ReadLine();
+            }
+        if (undido2 != 0) {
+            aux = false;
+        }
+        if (aux == false) {
+            Console.WriteLine(" Ingresa la posicion que quieres atacar en el tablero de tu contrincante");
+            p=Int32.Parse(Console.ReadLine()); 
+            if (tablero1[(p - 1)]=="|☻☻☻|" ) { 
+                tablero1[(p - 1)] = "|0|" ; 
+                hundido1 -=1;
+                Console.WriteLine("¡Muy bien! Has hundido un barco de tu contrincante"); 
+                Console.WriteLine("Es turno del jugador " + j1);
+                Console.ReadLine();
+                Console.WriteLine(" ¡Lastima! Te han hundido un barco, tu tablero a quedado solo con " + hundido1 + " barcos:"); 
+                foreach(string x in tablero1){ 
+                    Console.Write("{0} ", x);
+                }
+                Console.ReadLine();
+            } else {
+                Console.WriteLine(" ¡Que mala suerte! No has atinado \n¡Espera al siguiente turno!");
+                Console.WriteLine("Es turno del jugador: " + j1);
+                Console.ReadLine();
+                Console.WriteLine(" No te han hundido ningun barco " + j1);
+                Console.ReadLine();
+            }
+        }
+        aux = true;
+    }
+    if (hundido1 == 0) {
+        dFinal = false;
+        Console.WriteLine("El ganador es: " + j2 + " \nEl perdedor es: " + j1);
+        Console.WriteLine("¡Felicidades! " + j2 + " Has ganado"); 
+        Console.ReadLine(); 
+    } 
+    if (undido2==0) {
+        dFinal=false; 
+        Console.WriteLine("El ganador es: " + j1 + " \nEl perdedor es: " + j2);
+        Console.WriteLine("¡Felicidades! " + j1 + " Has ganado"); 
+        Console.ReadLine(); 
+    } 
+}
+    Console.WriteLine("Barcos restantes de: " + j1);
+    foreach(string y in tablero1){
+        Console.Write(" {0} ", y);
+    }
+    Console.WriteLine("Barcos restantes de: " + j2);
+    foreach(string f in tablero2){
+        Console.Write(" {0} ", f);
+            }
+        }
+    }
